@@ -1,21 +1,9 @@
-package com.company.models;
+package com.company;
 
 public class Product {
     private String name;
     private double price;
     private double discount;
-
-
-    public Product() {
-
-    }
-
-    public Product(String name, double price, double discount) {
-        this.name = name;
-        this.price = price;
-        this.discount = discount;
-    }
-
 
     public String getName() {
         return name;
@@ -41,4 +29,11 @@ public class Product {
         this.discount = discount;
     }
 
+    @Override
+    public String toString() {
+        return
+                "name='" + name + '\'' +
+                        ", price=" + price +
+                        ", discount=" + discount +"\n";
+    }
 }

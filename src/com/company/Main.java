@@ -1,54 +1,53 @@
 package com.company;
 
-import com.company.dao.ClientProduct;
-import com.company.models.Client;
-import com.company.models.Product;
+//import static com.company.ClientProduct.amountOfProduct;
 
-import java.util.Arrays;
-import java.util.Scanner;
-
-import static com.company.dao.ClientProduct.amountOfProduct;
 
 public class Main {
+
     public static void main(String[] args) {
-        Product glue = new Product("glue", 150.0, 5.0);
-        Product pen = new Product("pen", 30.0, 0.0);
-        Product notebook = new Product("notebook", 350.0, 10.0);
-        Product eraser = new Product("eraser", 25.0, 0.0);
-        Product backpack = new Product("backpack", 3000.0, 15.0);
+        System.out.println("Hello World!");
+        ClientProduct laptopRog = new ClientProduct();
+        laptopRog.setName("Asus Rog Zephyrus 14");
+        laptopRog.setDiscount(0);
+        laptopRog.setPrice(220000);
+        laptopRog.setQuantity(1);
 
+        ClientProduct mouse = new ClientProduct();
+        mouse.setName("Steelseries rival pro");
+        mouse.setPrice(13000);
+        mouse.setDiscount(5);
+        mouse.setQuantity(2);
 
-        Client client = new Client();
-        client.setName("rikitwiki");
-        client.setEmail("rikitwiki@gmail.com");
+        ClientProduct[] clientProducts = new ClientProduct[2];
+        clientProducts[0] = laptopRog;
+        clientProducts[1] = mouse;
 
+        Client test = new Client();
+        test.setName("Abil");
+        test.setEmail("abil@mail.ru");
+        test.setCart(new Cart(clientProducts));
 
+        /**
+         * создать метод который принимает объект класса клиент
+         * и выводит сумму каждого товара со скидкой и общую сумму товаров в его корзине
+         * */
 
-        ClientProduct clientProduct = new ClientProduct();
-        clientProduct.setName("notebook");
-        clientProduct.setPrice(350.0);
-        clientProduct.setDiscount(10.0);
-        clientProduct.setQuantity(2.0);
-
-
-
-        ClientProduct[] clientProducts = new ClientProduct[1];
-        clientProducts[0] = clientProduct;
-
-        clientProduct.setAmount(amountOfProduct(clientProducts));
-
-//        System.out.println(Arrays.toString(order));
-
+        calculateClientProductAmount(test);
     }
 
-//    private static double amountOfProduct(ClientProduct[] clientProducts) {
-//
-//        double sumOfProduct = 0;
-//
-//        for (int i = 0; i < clientProducts.length; i++) {
-//            sumOfProduct += clientProducts[i].getPrice() * clientProducts.get
-//        }
-//
-//    }
+    public static void calculateClientProductAmount(Client client){
 
+        double totalSum = 0;
+        for (int i = 0; i < client.getCart().getClientProducts().length; i++){
+            ClientProduct clientProduct = client.getCart().getClientProducts()[i];
+
+            double sumWithoutDiscount = clientProduct.getPrice() * clientProduct.getQuantity();
+            double finalSum = sumWithoutDiscount - clientProduct.getDiscount() * clientProduct.getQuantity()  * sumWithoutDiscount/100;
+            clientProduct.setAmount(finalSum);
+            totalSum += finalSum;
+            System.out.println("Sum of "+ clientProduct.getName() + " " + clientProduct.getAmount());
+        }
+        System.out.println("Total sum is "+ totalSum);
+    }
 }

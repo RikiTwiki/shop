@@ -1,22 +1,11 @@
-package com.company.models;
+package com.company;
 
-import com.company.dao.Cart;
+import com.company.Cart;
 
 public class Client {
     private String name;
     private String email;
     private Cart cart;
-
-
-    public Client() {
-
-    }
-
-    public Client(String name, String email, Cart cart) {
-        this.name = name;
-        this.email = email;
-        this.cart = cart;
-    }
 
     public String getName() {
         return name;
@@ -41,6 +30,4 @@ public class Client {
     public void setCart(Cart cart) {
         this.cart = cart;
     }
-
-
 }
